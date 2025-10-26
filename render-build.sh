@@ -1,19 +1,24 @@
 #!/usr/bin/env bash
-# Render Build Script for Glam&Glow WhatsApp API
-
-# Exit on error
 set -e
 
-echo "⚙️ Updating system and installing Chromium..."
+echo "⚙️ Installing system dependencies..."
 apt-get update
-apt-get install -y chromium chromium-common chromium-driver fonts-liberation libappindicator3-1 xdg-utils
+apt-get install -y wget gnupg ca-certificates fonts-liberation libappindicator3-1 xdg-utils unzip
 
-echo "✅ Chromium installed."
+echo "⬇️ Installing Chromium manually..."
+mkdir -p /usr/src/chromium
+cd /usr/src/chromium
+wget https://storage.googleapis.com/chromium-browser-snapshots/Linux_x64/1219126/chrome-linux.zip
+unzip chrome-linux.zip
+mv chrome-linux /usr/bin/chromium
+ln -s /usr/bin/chromium/chrome /usr/bin/chromium-browser
 
-# Install Node dependencies
+echo "✅ Chromium installed at /usr/bin/chromium-browser"
+
+cd /opt/render/project/src
+
+echo "📦 Installing Node dependencies..."
 npm install
-
-echo "🧩 Installing Puppeteer Chrome..."
 npx puppeteer browsers install chrome
 
-echo "🚀 Build complete!"
+echo "🚀 Build complete"
