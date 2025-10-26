@@ -1,13 +1,19 @@
 #!/usr/bin/env bash
-# Install Chromium manually for Puppeteer on Render
-apt-get update
-apt-get install -y chromium-browser
+# Render Build Script for Glam&Glow WhatsApp API
 
-# Make sure puppeteer can find it
-export PUPPETEER_EXECUTABLE_PATH=$(which chromium-browser)
+# Exit on error
+set -e
+
+echo "⚙️ Updating system and installing Chromium..."
+apt-get update
+apt-get install -y chromium chromium-common chromium-driver fonts-liberation libappindicator3-1 xdg-utils
+
+echo "✅ Chromium installed."
 
 # Install Node dependencies
 npm install
 
-# Install Chrome for Puppeteer (just in case)
+echo "🧩 Installing Puppeteer Chrome..."
 npx puppeteer browsers install chrome
+
+echo "🚀 Build complete!"
