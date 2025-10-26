@@ -6,9 +6,6 @@ app.use(express.json());
 
 create({
   headless: true,
-  qrTimeout: 0,
-  authTimeout: 0,
-  cacheEnabled: false,
   useChrome: true,
   executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
   args: [
@@ -18,8 +15,10 @@ create({
     "--disable-gpu",
     "--no-zygote",
     "--single-process",
-    "--disable-extensions",
-  ]
+  ],
+  qrTimeout: 0,
+  authTimeout: 0,
+  cacheEnabled: false
 })
 .then(client => {
   console.log("✅ WhatsApp session ready");
