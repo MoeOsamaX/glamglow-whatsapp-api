@@ -3,10 +3,12 @@ import { create } from "@open-wa/wa-automate";
 
 const app = express();
 app.use(express.json());
+import { create } from '@open-wa/wa-automate';
+
 create({
   headless: true,
   useChrome: true,
-  executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || '/usr/bin/chromium',
+  executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || '/usr/bin/chromium-browser',
   args: [
     "--no-sandbox",
     "--disable-setuid-sandbox",
@@ -18,7 +20,8 @@ create({
   qrTimeout: 0,
   authTimeout: 0,
   cacheEnabled: false
-});
+}).then(client => start(client));
+
 
 .then(client => {
   console.log("✅ WhatsApp session ready");
