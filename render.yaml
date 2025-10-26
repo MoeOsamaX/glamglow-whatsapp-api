@@ -1,5 +1,7 @@
 services:
   - type: web
-    name: glamglow-whatsapp-api
+    name: glamglow-whatsapp
+    env: node
     plan: free
-    env: docker
+    buildCommand: "npm install"
+    startCommand: "npm start"
