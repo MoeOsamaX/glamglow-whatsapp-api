@@ -8,8 +8,20 @@ create({
   headless: true,
   qrTimeout: 0,
   authTimeout: 0,
-  cacheEnabled: false
-}).then(client => {
+  cacheEnabled: false,
+  useChrome: true,
+  executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
+  args: [
+    "--no-sandbox",
+    "--disable-setuid-sandbox",
+    "--disable-dev-shm-usage",
+    "--disable-gpu",
+    "--no-zygote",
+    "--single-process",
+    "--disable-extensions",
+  ]
+})
+.then(client => {
   console.log("✅ WhatsApp session ready");
   app.post("/sendText", async (req, res) => {
     const { to, text } = req.body;
