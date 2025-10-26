@@ -5,22 +5,41 @@ const app = express();
 app.use(express.json());
 import { create } from '@open-wa/wa-automate';
 
+cimport express from "express";
+import { create } from "venom-bot";
+
+const app = express();
+app.use(express.json());
+
+let client = null;
+
 create({
+  session: "glamglow",
+  multidevice: true,
   headless: true,
-  useChrome: true,
-  executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || '/usr/bin/chromium-browser',
-  args: [
+  browserArgs: [
     "--no-sandbox",
     "--disable-setuid-sandbox",
     "--disable-dev-shm-usage",
-    "--disable-gpu",
+    "--disable-accelerated-2d-canvas",
+    "--no-first-run",
     "--no-zygote",
-    "--single-process"
+    "--single-process",
+    "--disable-gpu"
   ],
-  qrTimeout: 0,
-  authTimeout: 0,
-  cacheEnabled: false
-}).then(client => start(client));
+  executablePath: "/usr/bin/chromium"
+})
+  .then((c) => {
+    client = c;
+    console.log("✅ WhatsApp session started successfully!");
+  })
+  .catch((err) => console.error("❌ WhatsApp init error:", err));
+
+app.get("/", (req, res) => res.send("🚀 Glam&Glow WhatsApp API Running!"));
+
+const PORT = process.env.PORT || 10000;
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+
 
 
 .then(client => {
