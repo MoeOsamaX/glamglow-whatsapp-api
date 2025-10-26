@@ -14,5 +14,8 @@
     "puppeteer-extra": "^3.3.6",
     "puppeteer-extra-plugin-stealth": "^2.11.2",
     "@wppconnect-team/wppconnect": "^1.28.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
