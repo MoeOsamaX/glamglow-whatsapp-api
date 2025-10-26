@@ -3,23 +3,23 @@ import { create } from "@open-wa/wa-automate";
 
 const app = express();
 app.use(express.json());
-
 create({
   headless: true,
   useChrome: true,
-  executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
+  executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || '/usr/bin/chromium',
   args: [
     "--no-sandbox",
     "--disable-setuid-sandbox",
     "--disable-dev-shm-usage",
     "--disable-gpu",
     "--no-zygote",
-    "--single-process",
+    "--single-process"
   ],
   qrTimeout: 0,
   authTimeout: 0,
   cacheEnabled: false
-})
+});
+
 .then(client => {
   console.log("✅ WhatsApp session ready");
   app.post("/sendText", async (req, res) => {
